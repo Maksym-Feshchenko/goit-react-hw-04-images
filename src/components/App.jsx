@@ -11,8 +11,8 @@ const App = () => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [modalImage, setModalImage] = useState("");
+  const [setShowModal] = useState(false);
+  const [setModalImage] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [totalHits, setTotalHits] = useState(1);
@@ -20,11 +20,6 @@ const App = () => {
   const openModal = (largeImageURL) => {
     setShowModal(true);
     setModalImage(largeImageURL);
-  };
-
-  const toggleModal = () => {
-    setModalImage("");
-    setShowModal(false);
   };
 
   const handleFormSubmit = (searchQuery) => {
