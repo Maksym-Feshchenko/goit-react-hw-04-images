@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
-const Modal = ({ largeImageURL, onClose }) => {
-  const handleKeyDown = (e) => {
+const Modal = ({ children, onClose }) => {
+  const handleKeyDown = useCallback((e) => {
     if (e.code === "Escape") {
       onClose();
     }
-  };
+  }, [onClose]);
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
+    const eventListener = (e) => handleKeyDown(e);
+    window.addEventListener("keydown", eventListener);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", eventListener);
     };
   }, [handleKeyDown]);
 
@@ -24,7 +25,7 @@ const Modal = ({ largeImageURL, onClose }) => {
   return (
     <div className="Overlay" onClick={handleBackdropClick}>
       <div className="Modal">
-        <img src={largeImageURL} alt="" />
+      {children}
       </div>
     </div>
   );
