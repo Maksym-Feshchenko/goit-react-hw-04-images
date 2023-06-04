@@ -1,45 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Modal from '../Modal/Modal';
 
-class ImageGallery extends Component {
-  state = {
-    showModal: false,
-    selectedImage: null
+const ImageGallery = ({ images }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const openModal = (image) => {
+    setShowModal(true);
+    setSelectedImage(image);
   };
 
-  openModal = (image) => {
-    this.setState({ showModal: true, selectedImage: image });
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedImage(null);
   };
 
-  closeModal = () => {
-    this.setState({ showModal: false, selectedImage: null });
-  };
-
-  render() {
-    const { images } = this.props;
-    const { showModal, selectedImage } = this.state;
-
-    return (
-      <div>
-        <ul className="ImageGallery">
-          {images.map((image) => (
-            <ImageGalleryItem
-              key={image.id}
-              webformatURL={image.webformatURL}
-              largeImageURL={image.largeImageURL}
-              openModal={this.openModal}
-            />
-          ))}
-        </ul>
-        {showModal && (
-          <Modal onClose={this.closeModal}>
-            <img src={selectedImage} alt="" />
-          </Modal>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <ul className="ImageGallery">
+        {images.map((image) => (
+          <ImageGalleryItem
+            key={image.id}
+            webformatURL={image.webformatURL}
+            largeImageURL={image.largeImageURL}
+            openModal={openModal}
+          />
+        ))}
+      </ul>
+      {showModal && (
+        <Modal onClose={closeModal}>
+          <img src={selectedImage} alt="" />
+        </Modal>
+      )}
+    </div>
+  );
+};
 
 export default ImageGallery;

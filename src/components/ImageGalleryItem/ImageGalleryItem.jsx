@@ -1,8 +1,9 @@
 import React from 'react';
 
-
 const ImageGalleryItem = ({ largeImageURL, openModal, webformatURL }) => {
-
+  const handleImageClick = () => {
+    openModal(largeImageURL);
+  };
 
   return (
     <li className="ImageGalleryItem-image">
@@ -10,9 +11,8 @@ const ImageGalleryItem = ({ largeImageURL, openModal, webformatURL }) => {
         src={webformatURL}
         alt=""
         className="gallery-image"
-        onClick={() => openModal(largeImageURL)}
+        onClick={handleImageClick}
       />
-      
     </li>
   );
 };
